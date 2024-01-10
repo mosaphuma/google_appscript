@@ -55,7 +55,7 @@ Logger.log('Updated sheet with invoice number: ' + invoiceNumber);
 
 function insertRowIntoSheet(submitterName, particPant, phone, submitterEmail, submissionDate, invoiceNumber) {
   try {
-    var sheet = SpreadsheetApp.openById('1o9ugGmQetjPEDntx1dVHHfUfOvMPe4u6D8tHEXy2G04').getActiveSheet();
+    var sheet = SpreadsheetApp.openById('1k-NnU7YV7Em1rt56cK8_ySQIohMuOzGTaZVQVWnkI3o').getActiveSheet();
     
     // Get all data from the sheet
     var data = sheet.getDataRange().getValues();
@@ -164,14 +164,25 @@ function generateInvoice(submitterName, particPant, phone, submitterEmail, submi
 
 
 
-    // Send the email with HTML body and PDF attachment
+   // Send the email with HTML body and PDF attachment
     MailApp.sendEmail({
       to: submitterEmail,
       subject: "Invoice for " + submitterName,
-      body: "Dear " + submitterName + ",\n\n" +
-            "Thank you for your submission. Please find the attached invoice for your reference.",
+      htmlBody: "Dear " + submitterName + ",<br><br>" +
+            "គោរពជូន<br>" +
+            "លោកឧកញ៉ា លោកជំទាវ លោក លោកស្រី ប្រធានសហគ្រាស<br><br>" +
+            "និយ័តករគណនេយ្យនិងសវនកម្ម នៃអាជ្ញាធរសេវាហិរញ្ញវត្ថុមិនមែនធនាគារនឹងរៀបចំសិក្ខាសាលាផ្សព្វផ្សាយស្តីពី"+
+            '"<b>វគ្គបណ្តុះបណ្តាលស្តង់ដារបាយការណ៍ហិរញ្ញវត្ថុអន្តរជាតិនៃកម្ពុជាសម្រាប់សហគ្រាសធុនតូចនិងមធ្យម (CIFRS for SMEs)</b>"<br><br>' +
+            "សិក្ខាសាលានេះនឹងប្រព្រឹត្តទៅនា ៖<br>"+
+            "ថ្ងៃទី១៧ ខែមករា ឆ្នាំ២០២៤<br><br>" +
+            "វេលាម៉ោង៨:០០នាទីព្រឹក នៅសណ្ឋាគារសុខា ខេត្តព្រះសីហនុ។<br>"+
+            "សម្រាប់ព័ត៌មានបន្ថែមសូមទំនាក់ទំនង<br>"+
+            "កញ្ញា សុខ ណាវី <br>"+
+            "០៦៩៥៥១៥០៧<br>"+
+            "សូមអរគុណចំពោះការបញ្ជូនរបស់អ្នក។ សូមស្វែងរកវិក្កយបត្រដែលភ្ជាប់មកជាមួយសម្រាប់អ្នកជាឯកសារយោង។",
       attachments: [pdfBlob]
     });
+    
     
     // Delete the temporary template document
     DriveApp.getFileById(copiedFile.getId()).setTrashed(true);
